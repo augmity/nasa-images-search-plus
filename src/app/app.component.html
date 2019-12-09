@@ -7,10 +7,10 @@
 
     <div class="field has-addons">
       <div class="control">
-        <input class="input" type="text" [(ngModel)]="query" (keyup.enter)="search()" [disabled]="isLoading">
+        <input class="input" type="text" [(ngModel)]="query" (keyup.enter)="nasaImagesService.search(query)" [disabled]="nasaImagesService.isLoading">
       </div>
       <div class="control">
-        <button class="button is-success" [ngClass]="isLoading ? 'is-loading' : null" (click)="search()">Search</button>
+        <button class="button is-success" [ngClass]="nasaImagesService.isLoading ? 'is-loading' : null" (click)="nasaImagesService.search(query)">Search</button>
       </div>
     </div>
   </div>
@@ -19,12 +19,11 @@
 <section class="section">
   <div class="container">
 
-    <div class="image-grid" *ngIf="images$ | async as images">
+    <div class="image-grid" *ngIf="nasaImagesService.images$ | async as images">
       <img *ngFor="let image of images" [src]="image.uri" />
+
+      <p *ngIf="images.length === 0">No results found.</p>
     </div>
 
   </div>
 </section>
-
-
-<!-- <router-outlet></router-outlet> -->
